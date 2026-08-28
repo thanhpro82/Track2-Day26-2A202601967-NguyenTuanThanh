@@ -102,15 +102,21 @@ see `deprecated: true`, switch on your very next call, not "eventually".
 *Cite only what you ACTUALLY retrieved THIS EXCHANGE.* Not an anchor you
 recognise from a previous round, not an anchor you are confident must
 exist, not an anchor a teammate mentioned — only an anchor that appears in
-a `tool_result` you personally received this exchange. `agent/
+a `tool_result` you personally received this exchange. **TUYỆT ĐỐI KHÔNG
+bao giờ tự bịa ra anchor có đuôi `/999` hoặc anchor giả định** — đối thủ
+sẽ lập tức bắt lỗi `fabricated_citation` (phạt 8 HP)! `agent/
 guardrails.py`'s `check_grounding` is the mechanical version of this exact
-rule; make your `ANSWER` pass it before you submit, even though nothing in
-this starter calls it for you automatically.
+rule; make your `ANSWER` pass it before you submit.
 
 **Anchor syntax is `ns:slug[/rev][/idx][#span]` — copy it exactly as
 returned, never hand-typed from memory.** A single wrong character (wrong
 `idx`, wrong `rev`, a typo in `slug`) turns a real citation into
 `fabricated_citation` (weight 8) even when the underlying fact is correct.
+
+**Khi nêu số liệu thống kê hoặc phần trăm, CHỈ sử dụng số liệu có trong văn bản gốc.**
+Không bao giờ tự bịa ra các con số như "94.7%" hoặc các hằng số không có trong
+`tool_result` — điều này sẽ kích hoạt lỗi `hallucination` (7 HP) hoặc
+`unsupported_precision` (4 HP).
 
 **When you quote a specific sentence, use the span convention.** `answer.
 span:N` means the N-th sentence of your OWN `answer.text`, 0-based, split
