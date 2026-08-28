@@ -100,6 +100,7 @@ __all__ = [
     "pick_replica",
     "ResultCache",
     "should_delegate",
+    "GameTheoreticStateTracker",
 ]
 
 ROUNDS_PER_DUEL = 10
@@ -368,6 +369,20 @@ def should_delegate(
     if credits_left < delegate_cost:
         return False
     return True
+
+
+@dataclass(slots=True)
+class GameTheoreticStateTracker:
+    """Dynamic state transition evaluator based on Finite-Horizon Game Theory.
+    Evaluates relative credit ΔC and relative HP ΔH to determine optimal stance."""
+
+    def evaluate_stance(self, delta_c: int, delta_h: int, opp_h: int) -> str:
+        if delta_c > 15 or delta_h > 20 or opp_h < 35:
+            return "AGGRESSIVE_PRESSURE"
+        if delta_c < -15 or delta_h < -20:
+            return "ECONOMICAL_DEFENSE"
+        return "ASYMMETRIC_COUNTER"
+
 
 
 if __name__ == "__main__":
