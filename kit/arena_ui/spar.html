@@ -126,7 +126,7 @@ function toLogicalXY(clientX, clientY) {
 
 const params = new URLSearchParams(window.location.search);
 const RUN_ID = params.get('run');
-const EXCHANGE_ID = params.get('exchange');
+const EXCHANGE_ID = params.get('exchange') || (RUN_ID ? 'events' : null);
 const REPLAY_PATH = params.get('replay');
 const YOU = params.get('you') === 'B' ? 'B' : 'A';
 const OPPONENT = YOU === 'A' ? 'B' : 'A';
