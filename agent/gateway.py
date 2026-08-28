@@ -431,7 +431,7 @@ class Gateway:
         server, tool = SUCCESSORS.get((cmd.server, cmd.tool), (cmd.server, cmd.tool))
         rewritten = (server, tool) != (cmd.server, cmd.tool)
 
-        if (server, tool) == ("slides", "get_frame") and not cmd.lease_id and not getattr(self._ctx, "leases", ()):
+        if (server, tool) == ("slides", "get_frame") and not cmd.lease_id and not getattr(self.ctx, "leases", ()):
             self.denied += 1
             return self.deny(cmd, "get_frame requires an active lease")
 
